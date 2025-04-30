@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Check, Download, Eye, EyeOff } from 'lucide-react';
+import {  Download, Eye, EyeOff } from 'lucide-react';
 
 interface RobotsTxtPreviewProps {
   content: string;
@@ -13,17 +13,9 @@ const RobotsTxtPreview: React.FC<RobotsTxtPreviewProps> = ({
   const [copied, setCopied] = useState(false);
   const [showPreview, setShowPreview] = useState(true);
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
-  };
 
-  // Reset the copied state when content changes
+
+
   useEffect(() => {
     setCopied(false);
   }, [content]);
@@ -40,13 +32,7 @@ const RobotsTxtPreview: React.FC<RobotsTxtPreviewProps> = ({
           >
             {showPreview ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
-          <button
-            onClick={handleCopy}
-            className={`p-2 ${copied ? 'text-green-600' : 'text-gray-600 hover:text-gray-800'} rounded transition-colors`}
-            aria-label="Copy to clipboard"
-          >
-            {copied ? <Check size={18} /> : <Copy size={18} />}
-          </button>
+         
           <button
             onClick={onDownload}
             className="p-2 text-gray-600 hover:text-gray-800 rounded transition-colors"
